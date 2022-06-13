@@ -1,0 +1,18 @@
+.item-container {
+  display: flex;
+  justify-content: space-between;
+}
+.counter-container {
+  display: flex;
+  align-items: center;
+}
+.counter-button {
+  height: 20px;
+  width: 20px;
+}
+.counter-info {
+  display: flex;
+}
+.completed {
+  text-decoration: line-through;
+}
