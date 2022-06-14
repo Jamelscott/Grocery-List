@@ -40,7 +40,7 @@ function App() {
         <input className="list-add-button" type="submit" value="+" />
       </form>
       {allItems}
-      <p className="list-total">Total: {total}</p>
+      {total > 0 ? <p className="list-total">Total: {total}</p> : <></>}
     </div>
   );
 }
