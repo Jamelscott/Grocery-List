@@ -9,3 +9,4 @@
 ### To do
 
 - Build out server/database
+- Add a custom checkbox
