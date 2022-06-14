@@ -3,7 +3,7 @@
   font-family: "Roboto", sans-serif;
 }
 .list-container {
-  width: 400px;
+  max-width: 400px;
   margin: 50px auto;
   background-color: #ec7f71;
   padding: 20px;
@@ -61,5 +61,5 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 50px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
