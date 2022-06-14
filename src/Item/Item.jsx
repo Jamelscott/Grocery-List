@@ -44,6 +44,10 @@ function Item({ index, name, setTotal, total, items, setItems }) {
           </p>
         </div>
         <div className="counter-container">
+          <button className="counter-remove" onClick={handleRemoveItem}>
+            x
+          </button>
+          <div style={{ width: "10px" }}></div>
           <button
             className="counter-button counter-button-right"
             onClick={handleCounterDown}
@@ -55,9 +59,6 @@ function Item({ index, name, setTotal, total, items, setItems }) {
             {">"}
           </button>
           <p>{""}</p>
-          <button className="counter-remove" onClick={handleRemoveItem}>
-            {""}x
-          </button>
         </div>
       </div>
       <hr></hr>

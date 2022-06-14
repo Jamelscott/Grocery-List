@@ -4,8 +4,8 @@ import Item from "./Item/Item";
 
 function App() {
   const [currentItem, setCurrentItem] = useState("");
-  const [items, setItems] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [items, setItems] = useState(["Oat Milk", "Eggs"]);
+  const [total, setTotal] = useState(2);
   const allItems = items.map((elem, idx) => {
     return (
       <Item
