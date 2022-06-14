@@ -24,7 +24,7 @@ function Item({ index, name, setTotal, total, items, setItems }) {
   const handleRemoveItem = () => {
     console.log(items);
     let newList = items.filter((item) => {
-      return item != name;
+      return item !== name;
     });
     setItems(newList);
     setTotal(total - count);
