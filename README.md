@@ -5,3 +5,7 @@
 ### Inspiration
 
 ![](https://jschris.com/41168097024a0b0e7b306a91023114b8/project.gif)
+
+### To do
+
+- Build out server/database
