@@ -1,3 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  font-family: "Roboto", sans-serif;
+}
 .list-container {
-  width: 300px;
+  width: 400px;
+  margin: 50px auto;
+  background-color: #ec7f71;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.183);
+}
+.list-total {
+  font-size: 20px;
+  color: white;
+  padding: 0 25px;
+  text-align: end;
+}
+.list-input-field {
+  font-family: roboto;
+  width: 79%;
+  height: 50px;
+  background-color: #fccec6;
+  border-radius: 10px 0px 0px 10px;
+  border: none;
+  color: #ec7f71;
+  box-sizing: border-box;
+  padding-left: 10px;
+  font-size: 16px;
+  border: none;
+  resize: none;
+  outline: none;
+}
+.list-input-field::placeholder {
+  color: #ec7f71;
+}
+.list-add-button {
+  width: 40px;
+  line-height: 30px;
+  font-size: 30px;
+  height: 50px;
+  border: none;
+  border-radius: 0px 10px 10px 0px;
+  outline-width: 0;
+  background-color: #fccec6;
+  color: #ec7f71;
+  transition: 0.5s;
+}
+.list-add-button:focus {
+  outline-width: 0;
+}
+.list-add-button:hover {
+  color: white;
+  transition: 0.5s;
+}
+
+.list-form {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
