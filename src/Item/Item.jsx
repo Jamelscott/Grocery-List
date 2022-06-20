@@ -1,7 +1,8 @@
 import "./item.css";
 import { useState } from "react";
-function Item({ index, name, setTotal, total, items, setItems }) {
-  const [count, setCount] = useState(1);
+import bookmarkAdd from "../../src/bookmark_add.svg";
+function Item({ index, name, setTotal, total, items, setItems, quantity }) {
+  const [count, setCount] = useState(quantity);
   const [complete, setComplete] = useState(false);
   const handleComplete = () => {
     setComplete(!complete);
@@ -9,23 +10,50 @@ function Item({ index, name, setTotal, total, items, setItems }) {
     element.classList.toggle("completed");
   };
 
+  const handleIconChange = () => {
+    let iconChange = document.getElementById("saved");
+    iconChange.src = bookmarkAdd;
+  };
+
   const handleCounterDown = () => {
     if (count < 2) {
       return;
     }
+    const updatedList = items.map((elem, idx) => {
+      if (elem.name === name) {
+        elem.quantity -= 1;
+        return elem;
+      } else {
+        return elem;
+      }
+    });
+    handleIconChange();
     setCount(count - 1);
     setTotal(total - 1);
   };
 
   const handleCounterUp = () => {
+    let iconChange = document.getElementById("saved");
+    iconChange.src = bookmarkAdd;
+    const updatedList = items.map((elem, idx) => {
+      if (elem.name === name) {
+        elem.quantity += 1;
+        return elem;
+      } else {
+        return elem;
+      }
+    });
+    // console.log(updatedList);
+    setItems(updatedList);
     setCount(count + 1);
     setTotal(total + 1);
   };
   const handleRemoveItem = () => {
-    console.log(items);
     let newList = items.filter((item) => {
-      return item !== name;
+      return item.name != name;
     });
+    console.log(newList);
+    handleIconChange();
     setItems(newList);
     setTotal(total - count);
   };
