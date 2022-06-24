@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .list-container {
   max-width: 400px;
@@ -92,7 +92,7 @@
 
 /* Popup arrow */
 .popup .popuptext::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 100%;
   right: 8%;
