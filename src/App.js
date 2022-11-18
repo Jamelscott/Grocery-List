@@ -4,8 +4,15 @@ import bookmarkGreenCheck from "../src/bookmark_greencheck.svg";
 import "./App.css";
 import { useState, useEffect } from "react";
 import Item from "./Item/Item";
+import { supabase } from "./supabaseClient";
 
 function App() {
+  const massageDataTool = (arr) => {
+    return arr.map((elem, idx) => {
+      return { name: elem.name, quantity: elem.quantity };
+    });
+  };
+
   const [currentItem, setCurrentItem] = useState("");
   const [updates, setUpdates] = useState(false);
   const [items, setItems] = useState([]);
@@ -14,67 +21,57 @@ function App() {
   const allItems = items.map((elem, idx) => {
     return (
       <Item
+        massageDataTool={massageDataTool}
         quantity={elem.quantity}
         setUpdates={setUpdates}
         items={items}
+        setItems={setItems}
         total={total}
         setTotal={setTotal}
-        setItems={setItems}
-        key={`item-${idx + 1}`}
+        key={`saved-item-${idx + 1}`}
         index={idx}
         name={elem.name}
       />
     );
   });
 
-  const handleAddItem = (e) => {
+  const handleAddItem = async (e) => {
     e.preventDefault();
     if (!currentItem) return;
-    let checkList = items.filter(
+    let checkListForDuplicate = items.filter(
       (item) => item.name.toLowerCase() === currentItem.toLowerCase()
     );
-    if (checkList.length > 0) {
+    if (checkListForDuplicate.length > 0) {
       return;
     }
-    if (document.getElementById("saved").hidden) {
-      document.getElementById("saved").hidden = false;
-    }
-    let iconChange = document.getElementById("saved");
-    iconChange.src = bookmarkAdd;
-    setItems([...items, { name: currentItem, quantity: 1 }]);
+    const { data, error } = await supabase
+      .from("items")
+      .insert({ name: currentItem, quantity: 1 })
+      .select();
+    const massagedData = massageDataTool(data)[0];
+    setItems([...items, massagedData]);
     setCurrentItem("");
-    setTotal(total + 1);
+    setTotal(total + 1); // refactor to count items + quantities
     setUpdates(true);
   };
 
   useEffect(() => {
-    fetch("http://localhost:3030/items")
-      .then((response) => response.json())
-      .then((data) => {
-        setItems(data);
-      });
+    async function fetchAndRenderData() {
+      const { data, error } = await supabase.from("items").select();
+      let massagedData = massageDataTool(data);
+      setItems(massagedData);
+    }
+    fetchAndRenderData();
   }, []);
 
   useEffect(() => {
     let newTotal = 0;
     items.forEach((elem, idx) => {
-      // console.log(elem.quantity);
       newTotal += elem.quantity;
       setTotal(newTotal);
     });
+    // todo: add unsaved to total as well
   }, [items]);
-
-  const handleSaveList = () => {
-    fetch("http://localhost:3030/items/add", {
-      method: "POST",
-      body: JSON.stringify({ items }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-    let iconChange = document.getElementById("saved");
-    iconChange.src = bookmarkGreenCheck;
-  };
   return (
     <div className="list-container">
       <form className="list-form" onSubmit={handleAddItem}>
@@ -89,24 +86,6 @@ function App() {
       </form>
       {allItems}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {total > 0 ? (
-          <img
-            onClick={handleSaveList}
-            id="saved"
-            src={bookmarkConfirm}
-            alt="save state"
-            width="40px"
-          />
-        ) : (
-          <img
-            hidden
-            onClick={handleSaveList}
-            id="saved"
-            src={bookmarkConfirm}
-            alt="save state"
-            width="40px"
-          />
-        )}
         {total > 0 ? <p className="list-total">Total: {total}</p> : <></>}
       </div>
     </div>

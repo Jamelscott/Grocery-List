@@ -1,9 +1,24 @@
 import "./item.css";
+import whiteClose from "../assets/white-close.png";
+import oJClose from "../assets/oj-close.png";
 import { useState } from "react";
 import bookmarkAdd from "../../src/bookmark_add.svg";
-function Item({ index, name, setTotal, total, items, setItems, quantity }) {
+import { supabase } from "../supabaseClient";
+
+function Item({
+  index,
+  name,
+  setTotal,
+  total,
+  items,
+  setItems,
+  quantity,
+  massageDataTool,
+}) {
   const [count, setCount] = useState(quantity);
   const [complete, setComplete] = useState(false);
+  const [hovering, setHovering] = useState(false);
+
   const handleComplete = () => {
     setComplete(!complete);
     let element = document.getElementById(`itemName${index}`);
@@ -15,48 +30,52 @@ function Item({ index, name, setTotal, total, items, setItems, quantity }) {
     iconChange.src = bookmarkAdd;
   };
 
-  const handleCounterDown = () => {
+  const handleCounterDown = async () => {
     if (count < 2) {
       return;
     }
-    const updatedList = items.map((elem, idx) => {
-      if (elem.name === name) {
-        elem.quantity -= 1;
-        return elem;
-      } else {
-        return elem;
-      }
-    });
-    handleIconChange();
+    quantity += 1;
+    const { data1, error2 } = await supabase
+      .from("items")
+      .update({ quantity: quantity })
+      .eq("name", name);
+    const { data, error } = await supabase.from("items").select();
+    const massagedData = massageDataTool(data);
+    setItems(massagedData);
     setCount(count - 1);
     setTotal(total - 1);
   };
 
-  const handleCounterUp = () => {
-    let iconChange = document.getElementById("saved");
-    iconChange.src = bookmarkAdd;
-    const updatedList = items.map((elem, idx) => {
+  const handleCounterUp = async () => {
+    items.forEach((elem, idx) => {
       if (elem.name === name) {
         elem.quantity += 1;
-        return elem;
-      } else {
-        return elem;
       }
     });
-    // console.log(updatedList);
-    setItems(updatedList);
+    const { data2, error2 } = await supabase
+      .from("items")
+      .update({ quantity: quantity })
+      .eq("name", name);
+    console.log(data2, error2);
+    const { data, error } = await supabase.from("items").select();
+    const massagedData = massageDataTool(data);
+    console.log(massagedData);
+    setItems(massagedData);
     setCount(count + 1);
     setTotal(total + 1);
   };
-  const handleRemoveItem = () => {
-    let newList = items.filter((item) => {
-      return item.name != name;
-    });
-    console.log(newList);
-    handleIconChange();
-    setItems(newList);
+
+  const handleRemoveItem = async () => {
+    const { deleteData, deleteError } = await supabase
+      .from("items")
+      .delete()
+      .eq("name", name);
+    const { data, error } = await supabase.from("items").select();
+    const massagedData = massageDataTool(data);
+    setItems(massagedData);
     setTotal(total - count);
   };
+
   return (
     <>
       <div className="item-container">
@@ -72,9 +91,13 @@ function Item({ index, name, setTotal, total, items, setItems, quantity }) {
           </p>
         </div>
         <div className="counter-container">
-          <button className="counter-remove" onClick={handleRemoveItem}>
-            x
-          </button>
+          <div className="counter-remove" onClick={handleRemoveItem}>
+            {hovering ? (
+              <img src={whiteClose} alt="close-button" />
+            ) : (
+              <img src={oJClose} alt="close-button" />
+            )}
+          </div>
           <div style={{ width: "10px" }}></div>
           <button
             className="counter-button counter-button-right"
