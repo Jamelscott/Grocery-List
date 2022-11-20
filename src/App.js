@@ -1,15 +1,19 @@
+// add tooltip saying you already have that item when trting to add
+// add snapshot funcitonality to allow
 import bookmarkAdd from "../src/bookmark_add.svg";
 import bookmarkConfirm from "../src/bookmark_confirm.svg";
 import bookmarkGreenCheck from "../src/bookmark_greencheck.svg";
 import "./App.css";
 import { useState, useEffect } from "react";
 import Item from "./Item/Item";
+import axios from "axios";
 
 function App() {
   const [currentItem, setCurrentItem] = useState("");
   const [updates, setUpdates] = useState(false);
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
+  const [snapshot, setSnapshot] = useState([]); //set up to mimic items and confir if up to date
 
   const allItems = items.map((elem, idx) => {
     return (
@@ -48,10 +52,13 @@ function App() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3030/items")
-      .then((response) => response.json())
-      .then((data) => {
-        setItems(data);
+    axios
+      .get("http://localhost:2996/")
+      .then((response) => {
+        setItems(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -65,15 +72,16 @@ function App() {
   }, [items]);
 
   const handleSaveList = () => {
-    fetch("http://localhost:3030/items/add", {
-      method: "POST",
-      body: JSON.stringify({ items }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-    let iconChange = document.getElementById("saved");
-    iconChange.src = bookmarkGreenCheck;
+    if (updates) {
+      axios.post("http://localhost:2996/", items).then((response) => {
+        console.log(response.data);
+      });
+      let iconChange = document.getElementById("saved");
+      iconChange.src = bookmarkGreenCheck;
+      setUpdates(false);
+    } else {
+      return;
+    }
   };
   return (
     <div className="list-container">
@@ -89,24 +97,37 @@ function App() {
       </form>
       {allItems}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {total > 0 ? (
-          <img
-            onClick={handleSaveList}
-            id="saved"
-            src={bookmarkConfirm}
-            alt="save state"
-            width="40px"
-          />
-        ) : (
-          <img
-            hidden
-            onClick={handleSaveList}
-            id="saved"
-            src={bookmarkConfirm}
-            alt="save state"
-            width="40px"
-          />
-        )}
+        <div style={{ display: "flex", gap: "5px" }}>
+          {total > 0 ? (
+            <>
+              <img
+                onClick={handleSaveList}
+                id="saved"
+                src={bookmarkConfirm}
+                alt="save state"
+                width="40px"
+              />
+            </>
+          ) : (
+            <>
+              <img
+                hidden
+                onClick={handleSaveList}
+                id="saved"
+                src={bookmarkConfirm}
+                alt="save state"
+                width="40px"
+              />
+            </>
+          )}
+          {updates ? (
+            <p className="updatesText" style={{ color: "black" }}>
+              - unsaved changes
+            </p>
+          ) : (
+            <p className="updatesText">- up to date</p>
+          )}
+        </div>
         {total > 0 ? <p className="list-total">Total: {total}</p> : <></>}
       </div>
     </div>

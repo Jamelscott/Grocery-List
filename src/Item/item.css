@@ -84,3 +84,10 @@ hr {
 .item-checkbox:checked {
   background-color: black;
 }
+
+.updatesText {
+  font-size: 15px;
+  color: white;
+  margin-bottom: 0;
+  /* line-height: 30px; */
+}

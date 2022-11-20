@@ -1,7 +1,16 @@
 import "./item.css";
 import { useState } from "react";
 import bookmarkAdd from "../../src/bookmark_add.svg";
-function Item({ index, name, setTotal, total, items, setItems, quantity }) {
+function Item({
+  index,
+  name,
+  setTotal,
+  total,
+  items,
+  setItems,
+  quantity,
+  setUpdates,
+}) {
   const [count, setCount] = useState(quantity);
   const [complete, setComplete] = useState(false);
   const handleComplete = () => {
@@ -56,6 +65,7 @@ function Item({ index, name, setTotal, total, items, setItems, quantity }) {
     handleIconChange();
     setItems(newList);
     setTotal(total - count);
+    setUpdates(true);
   };
   return (
     <>
