@@ -27,7 +27,7 @@
 
 ### To Do
 
-- Bug1: we don't want to show the unsaved items if a user removes and adds back the same item/quantity to the grocery list
+- Bug1: we don't want to show the unsaved items if a user removes and adds back the same item/quantity to the grocery list (but we currently do)
 
   - to do this I started us off by creating a snapshot that is created after we receive new items back from the db. Please create logic that checks the items against the snapshot, if they are the same, we dont want the save icon to appear.
 
