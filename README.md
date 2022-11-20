@@ -13,7 +13,7 @@
 - run npm run start and see if you see anything at http://localhost:3000
 - create a .env file and add REACT_APP_SERVER_URL="http://localhost:2995/"
 
-- In a seperate directory, clone the ![server](https://github.com/Jamelscott/groceryList-server)
+- In a seperate directory, clone the g[server](https://github.com/Jamelscott/groceryList-server)
 - create a .env file and add PORT=2996
 
 - run nodemon in server directory and check if you receive the two console logs seen in server.js and /models/index.js
