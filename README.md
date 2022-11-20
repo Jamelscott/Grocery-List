@@ -10,7 +10,7 @@
 
 - clone this repo
 - cd into the directory and install dependenies
-- run npm run start and see if you see anything at http://localhost:3000
+- run npm run start and see if you see anything at http://localhost:3000/
 - create a .env file and add REACT_APP_SERVER_URL="http://localhost:2995/"
 
 - In a seperate directory, clone the [server](https://github.com/Jamelscott/groceryList-server)
