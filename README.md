@@ -35,6 +35,6 @@
 
   - to do this I started us off by creating a snapshot that is created after we receive new items back from the db. Please create logic that checks the items against the snapshot, if they are the same, we dont want the save icon to appear.
 
-- Fix: Update UI to include drop shadows and remove text next to the save button
+- Fix: Update UI to include drop shadows and remove text next to the save button, as per the Figma file above
 
 - 
