@@ -25,10 +25,16 @@
 
 - if you get to this point, you should be able to use the app and add an item to the grocery list, click the save button and refresh the screen. if your item is still there, you're ready to go.
 
+### Figma
+
+[click here](https://www.figma.com/file/WuCQlipQIFhyiGQadXUYli/Grocery-List?t=oFABnZbMFF5K9OdC-1)
+
 ### To Do
 
 - Bug1: we don't want to show the unsaved items if a user removes and adds back the same item/quantity to the grocery list (but we currently do)
 
   - to do this I started us off by creating a snapshot that is created after we receive new items back from the db. Please create logic that checks the items against the snapshot, if they are the same, we dont want the save icon to appear.
 
-- Bug2: TBD
+- Fix: Update UI to include drop shadows and remove text next to the save button
+
+- 
