@@ -34,6 +34,7 @@
 - [ ] Bug: we don't want to show the unsaved items if a user removes and adds back the same item/quantity to the grocery list (but we currently do). To do this I started us off by creating a snapshot that is created after we receive new items back from the db. Please create logic that checks the items against the snapshot, if they are the same, we dont want the save icon to appear.
 
 - [ ] Small task: Update UI to include drop shadows and remove text next to the save button, as per the linked Figma file
+- [ ] Small task: add onhover and onclick CSS to the arrow that add or siubtract from an item quantity
 
 - [ ] Medium task: Create Login and Sign up component as per the Figma file. Include adding state for input fields as {name : this.state.name, password: this.state.password} or similar.
  
