@@ -31,7 +31,7 @@
 
 ### To Do
 
-- [ ] Bug1: we don't want to show the unsaved items if a user removes and adds back the same item/quantity to the grocery list (but we currently do). To do this I started us off by creating a snapshot that is created after we receive new items back from the db. Please create logic that checks the items against the snapshot, if they are the same, we dont want the save icon to appear.
+- [ ] Bug: we don't want to show the unsaved items if a user removes and adds back the same item/quantity to the grocery list (but we currently do). To do this I started us off by creating a snapshot that is created after we receive new items back from the db. Please create logic that checks the items against the snapshot, if they are the same, we dont want the save icon to appear.
 
 - [ ] Small task: Update UI to include drop shadows and remove text next to the save button, as per the linked Figma file
 
