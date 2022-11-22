@@ -35,6 +35,10 @@
 
   - to do this I started us off by creating a snapshot that is created after we receive new items back from the db. Please create logic that checks the items against the snapshot, if they are the same, we dont want the save icon to appear.
 
-- Fix: Update UI to include drop shadows and remove text next to the save button, as per the Figma file above
+- Small task: Update UI to include drop shadows and remove text next to the save button, as per the linked Figma file
 
-- 
+- Medium task: Create Login and Sign up component as per the Figma file. Include adding state for input fields as {name : this.state.name, password: this.state.password} or similar.
+ 
+- Large task: Create Users model, setup server to receive user data
+  - apply salt rounds to password and store hashed passwords. research industry standard salt rounds.
+  - look into possible security threats
