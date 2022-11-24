@@ -25,12 +25,14 @@
   padding-bottom: 5px;
   color: #ec7f71;
   font-family: "Fascinate", cursive;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .counter-button:hover {
   color: #e7442e;
 }
 .counter-button-right {
   border-radius: 30px 0 0 30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .counter-info {
   display: flex;
@@ -47,6 +49,7 @@
   font-size: 18px;
   margin: 0;
   color: #ec7f71;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .counter-name {
   font-size: 18px;
@@ -54,6 +57,7 @@
   max-width: 190px;
   word-break: break-all;
   white-space: normal;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 }
 .completed {
   text-decoration: line-through;
@@ -80,6 +84,7 @@ hr {
   height: 20px;
   border: 2px solid black;
   border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .item-checkbox:checked {
   background-color: black;

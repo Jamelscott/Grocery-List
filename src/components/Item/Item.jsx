@@ -1,6 +1,6 @@
 import "./item.css";
 import { useState } from "react";
-import bookmarkAdd from "../../src/bookmark_add.svg";
+import bookmarkAdd from "../../assets/bookmark_add.svg";
 function Item({
   index,
   name,
@@ -99,7 +99,12 @@ function Item({
           <p>{""}</p>
         </div>
       </div>
-      <hr></hr>
+      <hr
+        style={{
+          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          backgroundColor: "white",
+        }}
+      ></hr>
     </>
   );
 }
