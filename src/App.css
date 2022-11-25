@@ -69,8 +69,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 18px;
+  margin-top: 18px;
 }
 
 .popup {
@@ -116,6 +116,77 @@
   visibility: visible;
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
+}
+.loginText {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 38px;
+  color: #ffffff;
+  text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+}
+.login-input-field {
+  font-family: "Roboto";
+  width: 90%;
+  height: 50px;
+  background-color: #fccec6;
+  border-radius: 10px 10px 10px 10px;
+  border: none;
+  color: #ec7f71;
+  box-sizing: border-box;
+  padding-left: 10px;
+  font-size: 18px;
+  border: none;
+  resize: none;
+  outline: none;
+  margin-bottom: 18px;
+  width: 100%;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+input::-webkit-input-placeholder {
+  color: #ec7f71;
+}
+input:-moz-placeholder {
+  color: #ec7f71;
+}
+.login-submit-button {
+  color: #ec7f71;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  width: 120px;
+  height: 38px;
+  background: #f7e5e2;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+.whiteLine {
+  width: 100%;
+  height: 3px;
+  border: 1px rgba(0, 0, 0, 0);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  margin: 18px 0;
+}
+.questionText {
+  font-size: 18px;
+  line-height: 25px;
+  color: white;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.link {
+  color: white;
+}
+.link:active {
+  text-decoration: none;
 }
 @keyframes fadeIn {
   from {

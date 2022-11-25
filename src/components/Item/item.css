@@ -62,12 +62,6 @@
 .completed {
   text-decoration: line-through;
 }
-hr {
-  height: 3px;
-  /* background-color: #ec7f71; */
-  border: 1px rgba(0, 0, 0, 0);
-  background-color: #fccec6;
-}
 .counter-remove {
   font-size: 20px;
   border: none;
