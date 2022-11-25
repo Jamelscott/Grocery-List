@@ -99,12 +99,7 @@ function Item({
           <p>{""}</p>
         </div>
       </div>
-      <hr
-        style={{
-          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-          backgroundColor: "white",
-        }}
-      ></hr>
+      <hr className="whiteLine"></hr>
     </>
   );
 }
