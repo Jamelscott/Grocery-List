@@ -36,7 +36,7 @@
 - [ ] Small task: Update UI to include drop shadows and remove text next to the save button, as per the linked Figma file
 - [ ] Small task: add onhover and onclick CSS to the arrow that add or siubtract from an item quantity
 
-- [ ] Medium task: Create Login and Sign up component as per the Figma file. Include adding state for input fields as {name : this.state.name, password: this.state.password} or similar.
+- [x] Medium task: Create Login and Sign up component as per the Figma file. Include adding state for input fields as {name : this.state.name, password: this.state.password} or similar.
  
 - [ ] Large task: Create Users model, setup server to receive user data
   - [ ] apply salt rounds to password and store hashed passwords. research industry standard salt rounds.
