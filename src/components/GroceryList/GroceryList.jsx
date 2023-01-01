@@ -70,6 +70,10 @@ function GroceryList() {
       newTotal += elem.quantity;
       setTotal(newTotal);
     });
+    console.log("items") //CHANGES FROM JON
+    console.log(items) //CHANGES FROM JON
+    console.log("snapshot") //CHANGES FROM JON
+    console.log(snapshot) //CHANGES FROM JON
   }, [items]);
 
   const handleSaveList = () => {
@@ -79,6 +83,7 @@ function GroceryList() {
       });
       let iconChange = document.getElementById("saved");
       iconChange.src = bookmarkGreenCheck;
+      setSnapshot(items) //CHANGES FROM JON
       setUpdates(false);
     } else {
       return;
