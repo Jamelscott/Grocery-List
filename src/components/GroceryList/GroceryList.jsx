@@ -8,6 +8,7 @@ import "../../App.css";
 import { useState, useEffect } from "react";
 import Item from "../Item/Item";
 import axios from "axios";
+import { CiUndo } from "react-icons/ci";
 
 function GroceryList() {
   const [currentItem, setCurrentItem] = useState("");
@@ -89,6 +90,20 @@ function GroceryList() {
       return;
     }
   };
+
+  const handleUndo = () => {
+    axios
+      .get("http://localhost:2996/")
+      .then((response) => {
+        setItems(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    let iconChange = document.getElementById("saved");
+    iconChange.src = bookmarkGreenCheck;
+    setUpdates(false);
+  }
   return (
     <>
       <div className="list-container">
@@ -135,6 +150,39 @@ function GroceryList() {
                   src={bookmarkConfirm}
                   alt="save state"
                   width="40px"
+                />
+              </>
+            )}
+          </div>
+          {/* changes from JON */}
+          <div style={{ display: "flex", gap: "5px" }}>
+            {total > 0 ? (
+              <>
+                <CiUndo
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    color: "white",
+                  }}
+                  class="dropShadow"
+                  onClick={handleUndo}
+                  id="undo"
+                  alt="undo state"
+
+                />
+              </>
+            ) : (
+              <>
+                <CiUndo
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    color: "black"
+                  }}
+                  class="dropShadow"
+                  // onClick={handleUndo}
+                  id="undo"
+                  alt="undo state"
                 />
               </>
             )}
