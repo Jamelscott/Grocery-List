@@ -39,6 +39,7 @@ function Item({
     handleIconChange();
     setCount(count - 1);
     setTotal(total - 1);
+    setUpdates(true);
   };
 
   const handleCounterUp = () => {
@@ -56,6 +57,7 @@ function Item({
     setItems(updatedList);
     setCount(count + 1);
     setTotal(total + 1);
+    setUpdates(true);
   };
   const handleRemoveItem = () => {
     let newList = items.filter((item) => {
