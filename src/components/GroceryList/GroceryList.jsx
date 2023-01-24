@@ -8,6 +8,7 @@ import "../../App.css";
 import { useState, useEffect } from "react";
 import Item from "../Item/Item";
 import axios from "axios";
+import { CiUndo } from "react-icons/ci";
 
 function GroceryList() {
   const [currentItem, setCurrentItem] = useState("");
@@ -57,6 +58,7 @@ function GroceryList() {
       .get("http://localhost:2996/")
       .then((response) => {
         setItems(response.data);
+        setSnapshot(response.data)
       })
       .catch((err) => {
         console.log(err);
@@ -70,6 +72,10 @@ function GroceryList() {
       newTotal += elem.quantity;
       setTotal(newTotal);
     });
+    console.log("items") //CHANGES FROM JON
+    console.log(items) //CHANGES FROM JON
+    console.log("snapshot") //CHANGES FROM JON
+    console.log(snapshot) //CHANGES FROM JON
   }, [items]);
 
   const handleSaveList = () => {
@@ -79,11 +85,26 @@ function GroceryList() {
       });
       let iconChange = document.getElementById("saved");
       iconChange.src = bookmarkGreenCheck;
+      setSnapshot(items) //CHANGES FROM JON
       setUpdates(false);
     } else {
       return;
     }
   };
+
+  const handleUndo = () => {
+    setItems([])
+    axios.get("http://localhost:2996/")
+      .then((response) => {
+        setItems(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    let iconChange = document.getElementById("saved");
+    iconChange.src = bookmarkGreenCheck;
+    setUpdates(false);
+  }
   return (
     <>
       <div className="list-container">
@@ -130,6 +151,39 @@ function GroceryList() {
                   src={bookmarkConfirm}
                   alt="save state"
                   width="40px"
+                />
+              </>
+            )}
+          </div>
+          {/* changes from JON */}
+          <div style={{ display: "flex", gap: "5px" }}>
+            {total > 0 ? (
+              <>
+                <CiUndo
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    color: "white",
+                  }}
+                  class="dropShadow"
+                  onClick={handleUndo}
+                  id="undo"
+                  alt="undo state"
+
+                />
+              </>
+            ) : (
+              <>
+                <CiUndo
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    color: "black"
+                  }}
+                  class="dropShadow"
+                  // onClick={handleUndo}
+                  id="undo"
+                  alt="undo state"
                 />
               </>
             )}
