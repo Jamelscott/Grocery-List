@@ -58,6 +58,7 @@ function GroceryList() {
       .get("http://localhost:2996/")
       .then((response) => {
         setItems(response.data);
+        setSnapshot(response.data)
       })
       .catch((err) => {
         console.log(err);
@@ -92,8 +93,8 @@ function GroceryList() {
   };
 
   const handleUndo = () => {
-    axios
-      .get("http://localhost:2996/")
+    setItems([])
+    axios.get("http://localhost:2996/")
       .then((response) => {
         setItems(response.data);
       })
