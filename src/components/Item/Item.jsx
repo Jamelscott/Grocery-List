@@ -10,13 +10,19 @@ function Item({
   setItems,
   quantity,
   setUpdates,
+  complete,
 }) {
   const [count, setCount] = useState(quantity);
-  const [complete, setComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(complete); // Use isComplete as state variable
+
   const handleComplete = () => {
-    setComplete(!complete);
-    let element = document.getElementById(`itemName${index}`);
-    element.classList.toggle("completed");
+    setIsComplete(!isComplete); // Update isComplete state with new value
+    items.forEach((elem) => {
+      if (elem.name === name) {
+        elem.complete = !elem.complete;
+      }
+    });
+    setUpdates(true);
   };
 
   const handleIconChange = () => {
@@ -39,6 +45,7 @@ function Item({
     handleIconChange();
     setCount(count - 1);
     setTotal(total - 1);
+    setUpdates(true);
   };
 
   const handleCounterUp = () => {
@@ -52,10 +59,11 @@ function Item({
         return elem;
       }
     });
-    // console.log(updatedList);
+
     setItems(updatedList);
     setCount(count + 1);
     setTotal(total + 1);
+    setUpdates(true);
   };
   const handleRemoveItem = () => {
     let newList = items.filter((item) => {
@@ -75,8 +83,12 @@ function Item({
             className="item-checkbox"
             type="checkbox"
             onClick={handleComplete}
+            checked={isComplete}
           ></input>
-          <p className="counter-name" id={`itemName${index}`}>
+          <p
+            className={`counter-name ${isComplete ? "completed" : ""}`}
+            id={`itemName${index}`}
+          >
             {" "}
             {name}
           </p>

@@ -19,6 +19,7 @@ function GroceryList() {
   const allItems = items.map((elem, idx) => {
     return (
       <Item
+        complete={elem.complete}
         quantity={elem.quantity}
         setUpdates={setUpdates}
         items={items}
@@ -46,7 +47,7 @@ function GroceryList() {
     }
     let iconChange = document.getElementById("saved");
     iconChange.src = bookmarkAdd;
-    setItems([...items, { name: currentItem, quantity: 1 }]);
+    setItems([...items, { name: currentItem, quantity: 1, complete: false }]);
     setCurrentItem("");
     setTotal(total + 1);
     setUpdates(true);
@@ -66,7 +67,6 @@ function GroceryList() {
   useEffect(() => {
     let newTotal = 0;
     items.forEach((elem, idx) => {
-      // console.log(elem.quantity);
       newTotal += elem.quantity;
       setTotal(newTotal);
     });
@@ -108,37 +108,22 @@ function GroceryList() {
             alignItems: "center",
           }}
         >
-          <div style={{ display: "flex", gap: "5px" }}>
-            {total > 0 ? (
-              <>
-                <img
-                  class="dropShadow"
-                  onClick={handleSaveList}
-                  id="saved"
-                  src={bookmarkConfirm}
-                  alt="save state"
-                  width="40px"
-                />
-              </>
-            ) : (
-              <>
-                <img
-                  hidden
-                  class="dropShadow"
-                  onClick={handleSaveList}
-                  id="saved"
-                  src={bookmarkConfirm}
-                  alt="save state"
-                  width="40px"
-                />
-              </>
-            )}
+          <div style={{ width: "100px" }}>
+            <img
+              class="dropShadow"
+              onClick={handleSaveList}
+              id="saved"
+              src={updates ? bookmarkAdd : bookmarkConfirm}
+              alt="save state"
+              width="40px"
+            />
           </div>
-          {total > 0 ? (
-            <p className="dropShadow list-total">Total: {total}</p>
+          {updates ? (
+            <p>unsaved changes</p>
           ) : (
-            <></>
+            <p style={{ color: "white" }}>up to date</p>
           )}
+          <p className="dropShadow list-total">Total: {total}</p>
         </div>
       </div>
       <div style={{ position: "absolute", top: 20, left: 20 }}>

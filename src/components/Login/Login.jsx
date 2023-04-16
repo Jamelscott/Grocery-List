@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../App.css";
+import { loginClientErrors } from "./login_helper";
 function Login() {
   const [loginCreds, setLoginCreds] = useState({
     username: "",
     password: "",
   });
+  const [error, setError] = useState("");
+
+  const handleLogin = (e) => {
+    setError("");
+    e.preventDefault();
+    setError(loginClientErrors(loginCreds));
+  };
 
   return (
     <>
       <div
         style={{
+          position: "relative",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
@@ -19,6 +28,8 @@ function Login() {
         className="list-container"
       >
         <p className="loginText">Login</p>
+
+        {error ? <p className="errorText">{error}</p> : <></>}
         <form
           style={{
             marginBottom: "0",
@@ -30,11 +41,12 @@ function Login() {
             justifyContent: "center",
           }}
           className="list-form"
+          onSubmit={handleLogin}
         >
           <input
             className="login-input-field"
             type="text"
-            placeholder="Username.."
+            placeholder="username.."
             value={loginCreds.name}
             onChange={(e) =>
               setLoginCreds({ ...loginCreds, username: e.target.value })
@@ -43,7 +55,7 @@ function Login() {
           <input
             className="login-input-field"
             type="password"
-            placeholder="Password.."
+            placeholder="password.."
             value={loginCreds.password}
             onChange={(e) =>
               setLoginCreds({ ...loginCreds, password: e.target.value })

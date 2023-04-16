@@ -9,13 +9,15 @@ import {
   Route,
   Link,
   BrowserRouter,
+  Navigate,
 } from "react-router-dom";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Navigate replace to="/login" />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/groceryList" element={<GroceryList />} />
         <Route path="/signUp" element={<SignUp />} />
       </Routes>

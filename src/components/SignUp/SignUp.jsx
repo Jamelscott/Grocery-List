@@ -1,17 +1,26 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { signupErrors } from "./signUp_helper.js";
 function SignUp() {
-  const [loginCreds, setLoginCreds] = useState({
+  const [signUpCreds, setSignUpCreds] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState("");
+
+  const handleSignUpSubmit = (e) => {
+    setError("");
+    e.preventDefault();
+    setError(signupErrors(signUpCreds));
+  };
 
   return (
     <>
       <div
         style={{
+          position: "relative",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
@@ -20,6 +29,7 @@ function SignUp() {
         className="list-container"
       >
         <p className="loginText">Sign up</p>
+        {error ? <p className="errorText">{error}</p> : <></>}
         <form
           style={{
             marginBottom: "0",
@@ -31,41 +41,45 @@ function SignUp() {
             justifyContent: "center",
           }}
           className="list-form"
+          onSubmit={handleSignUpSubmit}
         >
           <input
             className="login-input-field"
             type="text"
             placeholder="enter username.."
-            value={loginCreds.name}
+            value={signUpCreds.name}
             onChange={(e) =>
-              setLoginCreds({ ...loginCreds, username: e.target.value })
+              setSignUpCreds({ ...signUpCreds, username: e.target.value })
             }
           />
           <input
             className="login-input-field"
             type="email"
             placeholder="enter email.."
-            value={loginCreds.email}
+            value={signUpCreds.email}
             onChange={(e) =>
-              setLoginCreds({ ...loginCreds, email: e.target.value })
+              setSignUpCreds({ ...signUpCreds, email: e.target.value })
             }
           />
           <input
             className="login-input-field"
             type="password"
             placeholder="enter password.."
-            value={loginCreds.password}
+            value={signUpCreds.password}
             onChange={(e) =>
-              setLoginCreds({ ...loginCreds, password: e.target.value })
+              setSignUpCreds({ ...signUpCreds, password: e.target.value })
             }
           />
           <input
             className="login-input-field"
             type="password"
             placeholder="confirm password.."
-            value={loginCreds.confirmPassword}
+            value={signUpCreds.confirmPassword}
             onChange={(e) =>
-              setLoginCreds({ ...loginCreds, confirmPassword: e.target.value })
+              setSignUpCreds({
+                ...signUpCreds,
+                confirmPassword: e.target.value,
+              })
             }
           />
           <input className="login-submit-button" type="submit" value="Submit" />
@@ -73,7 +87,7 @@ function SignUp() {
         <hr className="whiteLine"></hr>
         <p className="questionText">
           already have an account? <br></br> Login <span> </span>
-          <Link className="link" to="/">
+          <Link className="link" to="/login">
             here
           </Link>
         </p>
