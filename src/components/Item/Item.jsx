@@ -12,11 +12,12 @@ function Item({
   setUpdates,
   complete,
 }) {
-  const [count, setCount] = useState(quantity);
+  // const [count, setCount] = useState(quantity);
+  // console.log("also rerendered", count ? count : "")
   const [isComplete, setIsComplete] = useState(complete); // Use isComplete as state variable
 
   const handleComplete = () => {
-    setIsComplete(!isComplete); // Update isComplete state with new value
+    setIsComplete(!isComplete)
     items.forEach((elem) => {
       if (elem.name === name) {
         elem.complete = !elem.complete;
@@ -31,7 +32,7 @@ function Item({
   };
 
   const handleCounterDown = () => {
-    if (count < 2) {
+    if (quantity < 2) {
       return;
     }
     const updatedList = items.map((elem, idx) => {
@@ -43,7 +44,7 @@ function Item({
       }
     });
     handleIconChange();
-    setCount(count - 1);
+    // quantity = quantity - 1
     setTotal(total - 1);
     setUpdates(true);
   };
@@ -61,7 +62,7 @@ function Item({
     });
 
     setItems(updatedList);
-    setCount(count + 1);
+    // quantity = quantity + 1;
     setTotal(total + 1);
     setUpdates(true);
   };
@@ -72,9 +73,17 @@ function Item({
     console.log(newList);
     handleIconChange();
     setItems(newList);
-    setTotal(total - count);
+    setTotal(total - quantity);
     setUpdates(true);
   };
+  const handleCheckedItem = ()=>{
+    complete = !complete
+    if(complete){
+      return true
+    }
+    return false
+  }  
+  
   return (
     <>
       <div className="item-container">
@@ -82,11 +91,11 @@ function Item({
           <input
             className="item-checkbox"
             type="checkbox"
-            onClick={handleComplete}
+            onChange={handleComplete}
             checked={isComplete}
           ></input>
           <p
-            className={`counter-name ${isComplete ? "completed" : ""}`}
+            className={`counter-name${isComplete ? " completed" : ""}`}
             id={`itemName${index}`}
           >
             {" "}
@@ -104,7 +113,7 @@ function Item({
           >
             {"<"}
           </button>
-          <p className="counter-number">{count}</p>
+          <p className="counter-number">{quantity}</p>
           <button className="counter-button" onClick={handleCounterUp}>
             {">"}
           </button>

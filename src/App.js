@@ -1,7 +1,7 @@
 import GroceryList from "./components/GroceryList/GroceryList";
 import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
-
+import {io} from 'socket.io-client'
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,6 +11,10 @@ import {
   BrowserRouter,
   Navigate,
 } from "react-router-dom";
+const socket = io('http://localhost:3001')
+socket.on('connect', ()=>{
+  console.log(`you connected with id: ${socket.id}`)
+})
 
 function App() {
   return (

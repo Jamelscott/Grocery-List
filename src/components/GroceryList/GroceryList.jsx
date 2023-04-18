@@ -8,6 +8,10 @@ import "../../App.css";
 import { useState, useEffect } from "react";
 import Item from "../Item/Item";
 import axios from "axios";
+import {io} from 'socket.io-client'
+
+
+const socket = io('http://localhost:3001')
 
 function GroceryList() {
   const [currentItem, setCurrentItem] = useState("");
@@ -15,7 +19,12 @@ function GroceryList() {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [snapshot, setSnapshot] = useState([]); //set up to mimic items and confir if up to date
+  const [newData, setNewData] = useState({})
 
+  socket.on('sending-new-items', items => {
+    console.log(items)
+    setItems(items)
+  })
   const allItems = items.map((elem, idx) => {
     return (
       <Item
@@ -80,6 +89,7 @@ function GroceryList() {
       let iconChange = document.getElementById("saved");
       iconChange.src = bookmarkGreenCheck;
       setUpdates(false);
+      socket.emit('new-save', items)
     } else {
       return;
     }
@@ -110,7 +120,7 @@ function GroceryList() {
         >
           <div style={{ width: "100px" }}>
             <img
-              class="dropShadow"
+              className="dropShadow"
               onClick={handleSaveList}
               id="saved"
               src={updates ? bookmarkAdd : bookmarkConfirm}
