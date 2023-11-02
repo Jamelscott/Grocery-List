@@ -8,14 +8,14 @@ import { useState, useEffect } from "react";
 import GroceryList from "./components/GroceryList/GroceryList";
 import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
-import { io } from 'socket.io-client'
+// import { io } from 'socket.io-client'
 import { jwtDecode } from "jwt-decode";
 import Navbar from "./components/Navbar/Navbar";
 
-const socket = io('http://localhost:3001')
-socket.on('connect', ()=>{
-  console.log(`you connected with id: ${socket.id}`)
-})
+// const socket = io('http://localhost:3001')
+// socket.on('connect', ()=>{
+//   console.log(`you connected with id: ${socket.id}`)
+// })
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
