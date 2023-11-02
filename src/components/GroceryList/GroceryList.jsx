@@ -1,31 +1,41 @@
 // add tooltip saying you already have that item when trting to add
 // add snapshot funcitonality to allow
-import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import bookmarkAdd from "../../assets/bookmark_add.svg";
 import bookmarkConfirm from "../../assets/bookmark_confirm.svg";
 import bookmarkGreenCheck from "../../assets/bookmark_greencheck.svg";
 import "../../App.css";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Item from "../Item/Item";
 import axios from "axios";
 import {io} from 'socket.io-client'
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
 
 
 const socket = io('http://localhost:3001')
 
-function GroceryList() {
+function GroceryList({currentUser}) {
+  const { id } = useParams()
   const [currentItem, setCurrentItem] = useState("");
   const [updates, setUpdates] = useState(false);
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
-  const [snapshot, setSnapshot] = useState([]); //set up to mimic items and confir if up to date
-  const [newData, setNewData] = useState({})
-
-  socket.on('sending-new-items', items => {
-    console.log(items)
-    setItems(items)
-  })
-  const allItems = items.map((elem, idx) => {
+  // socket.on('sending-new-items', items => {
+    //   console.log(items)
+    //   setItems(items)
+    // })
+  useEffect(() => {
+    async function fetchData() {
+      console.log('hi')
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/${id}`)
+      setItems([...data.items])
+    }
+    fetchData()
+  }, [id])
+console.log(items)
+  const allItems = items?.map((elem, idx) => {
     return (
       <Item
         complete={elem.complete}
@@ -63,19 +73,8 @@ function GroceryList() {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:2996/")
-      .then((response) => {
-        setItems(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
     let newTotal = 0;
-    items.forEach((elem, idx) => {
+    items?.forEach((elem, idx) => {
       newTotal += elem.quantity;
       setTotal(newTotal);
     });
@@ -83,7 +82,7 @@ function GroceryList() {
 
   const handleSaveList = () => {
     if (updates) {
-      axios.post("http://localhost:2996/", items).then((response) => {
+      axios.post(`${process.env.REACT_APP_SERVER_URL}/users/${id}`, items).then((response) => {
         console.log(response.data);
       });
       let iconChange = document.getElementById("saved");
@@ -94,6 +93,8 @@ function GroceryList() {
       return;
     }
   };
+  if (!currentUser) return <Navigate to="/login" />;
+
   return (
     <>
       <div className="list-container">
@@ -120,24 +121,25 @@ function GroceryList() {
         >
           <div style={{ width: "100px" }}>
             <img
-              className="dropShadow"
+              className="dropShadow my-anchor-element"
+              data-tooltip-variant='info'
               onClick={handleSaveList}
               id="saved"
               src={updates ? bookmarkAdd : bookmarkConfirm}
               alt="save state"
               width="40px"
             />
+             {updates && <Tooltip opacity={1} style={{backgroundColor: '#fccec6', color: '#ec7f71'}} border={'1px solid black'} isOpen={true} anchorSelect=".my-anchor-element" place="bottom-end">
+                save changes
+              </Tooltip>}
           </div>
           {updates ? (
-            <p>unsaved changes</p>
+              <p>unsaved changes</p>
           ) : (
             <p style={{ color: "white" }}>up to date</p>
           )}
           <p className="dropShadow list-total">Total: {total}</p>
         </div>
-      </div>
-      <div style={{ position: "absolute", top: 20, left: 20 }}>
-        <Link to="/">Login page</Link>
       </div>
     </>
   );

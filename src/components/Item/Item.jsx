@@ -1,5 +1,5 @@
 import "./item.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import bookmarkAdd from "../../assets/bookmark_add.svg";
 function Item({
   index,
@@ -25,6 +25,10 @@ function Item({
     });
     setUpdates(true);
   };
+
+  useEffect(()=>{
+    setIsComplete(complete)
+  },[complete])
 
   const handleIconChange = () => {
     let iconChange = document.getElementById("saved");

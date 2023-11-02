@@ -1,20 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../../App.css";
-import { loginClientErrors } from "./login_helper";
-function Login() {
+import axios from 'axios'
+import { jwtDecode } from "jwt-decode";
+
+function Login( { setCurrentUser, currentUser } ) {
   const [loginCreds, setLoginCreds] = useState({
-    username: "",
+    name: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [msg, setMsg] = useState("")
 
-  const handleLogin = (e) => {
-    setError("");
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setError(loginClientErrors(loginCreds));
+    setMsg("")
+    if (!loginCreds.name || !loginCreds.password) {
+      return setMsg("missing login credentials");
+    }
+    try {
+      const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/login`, loginCreds)
+      // decode the token that is sent to use
+      const { token } = data;
+      const decoded = jwtDecode(token);
+      // save the token in the localStorage
+      localStorage.setItem('jwt', token);
+      // set the state to the logged in user
+      setCurrentUser(decoded);
+    } catch(err) {
+      console.log(err)
+      setMsg(err.response.data.msg)
+    }
   };
-
+  if (currentUser) return <Navigate to={`/users/${currentUser.id}`} />;
   return (
     <>
       <div
@@ -28,8 +45,7 @@ function Login() {
         className="list-container"
       >
         <p className="loginText">Login</p>
-
-        {error ? <p className="errorText">{error}</p> : <></>}
+        {msg ? <p className="loginErrorText">{msg}</p> : <></>}
         <form
           style={{
             marginBottom: "0",
@@ -49,7 +65,7 @@ function Login() {
             placeholder="username.."
             value={loginCreds.name}
             onChange={(e) =>
-              setLoginCreds({ ...loginCreds, username: e.target.value })
+              setLoginCreds({ ...loginCreds, name: e.target.value })
             }
           />
           <input
@@ -71,8 +87,21 @@ function Login() {
           </Link>
         </p>
       </div>
-      <div>
-        <Link to="/groceryList">GroceryList</Link>
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          textAlign: "center",
+          color: 'white'
+        }}
+        className="list-container"
+      >
+        <h4 className="loginText" style={{marginTop:0, marginBottom:0}}>Just visiting?</h4>
+        <hr className="whiteLine"></hr>
+        <p className="questionText">username: visitor </p>
+        <p className="questionText">password: visitor </p>
       </div>
     </>
   );

@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
-import { signupErrors } from "./signUp_helper.js";
-function SignUp() {
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+function SignUp({setCurrentUser,  currentUser}) {
   const [signUpCreds, setSignUpCreds] = useState({
     username: "",
     email: "",
@@ -10,11 +11,47 @@ function SignUp() {
   });
   const [error, setError] = useState("");
 
-  const handleSignUpSubmit = (e) => {
+  const handleSignUpSubmit = async (e) => {
     setError("");
     e.preventDefault();
-    setError(signupErrors(signUpCreds));
+    if (!signUpCreds.username || signUpCreds.username.split("").length < 4) {
+      setError("invalid username, must be more then 3 characters");
+      return
+    }
+    if (!signUpCreds.email || signUpCreds.email.split("@")[0].length < 4) {
+      setError("invalid email");
+      return
+    }
+    if (signUpCreds.password.length < 5) {
+      setError("invalid password, must be at least 5 characeters");
+      return
+    }
+    if (signUpCreds.password !== signUpCreds.confirmPassword) {
+      setError("passwords do not match");
+      return
+    }
+    try {
+      const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/register`, {
+        name: signUpCreds.username,
+        email: signUpCreds.email,
+        password: signUpCreds.password
+      })
+
+      console.log(data)
+      // decode the token that is sent to use
+      const { token } = data;
+      const decoded = jwtDecode(token);
+      // save the token in the localStorage
+      localStorage.setItem('jwt', token);
+      // set the state to the logged in user
+      setCurrentUser(decoded);
+    } catch(err) {
+      console.log(err)
+      setError(err.response.data.msg)
+    }
+
   };
+  if (currentUser) return <Navigate to={`/users/${currentUser.id}`} />;
 
   return (
     <>
@@ -91,9 +128,6 @@ function SignUp() {
             here
           </Link>
         </p>
-      </div>
-      <div>
-        <Link to="/groceryList">GroceryList</Link>
       </div>
     </>
   );
