@@ -14,7 +14,7 @@ import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
 
 
-const socket = io('http://localhost:3001')
+// const socket = io('http://localhost:3001')
 
 function GroceryList({currentUser}) {
   const { id } = useParams()
@@ -88,7 +88,7 @@ console.log(items)
       let iconChange = document.getElementById("saved");
       iconChange.src = bookmarkGreenCheck;
       setUpdates(false);
-      socket.emit('new-save', items)
+      // socket.emit('new-save', items)
     } else {
       return;
     }
