@@ -28,13 +28,11 @@ function GroceryList({currentUser}) {
     // })
   useEffect(() => {
     async function fetchData() {
-      console.log('hi')
       const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/${id}`)
       setItems([...data.items])
     }
     fetchData()
   }, [id])
-console.log(items)
   const allItems = items?.map((elem, idx) => {
     return (
       <Item
