@@ -58,6 +58,9 @@
   color: #ec7f71;
   transition: 0.5s;
   font-weight: 900;
+  -webkit-border-radius: 0px 10px 10px 0px;
+  -moz-border-radius: 0px 10px 10px 0px;
+  -khtml-border-radius: 0px 10px 10px 0px;
 }
 .list-add-button:focus {
   outline-width: 0;
