@@ -3,7 +3,7 @@
 [Live link](https://main--venerable-cendol-3fdaaa.netlify.app/)
 
 ### server repo
-(https://github.com/Jamelscott/groceryList-server)
+https://github.com/Jamelscott/groceryList-server
 
 ### Inspiration
 
