@@ -38,6 +38,7 @@ function App() {
         <Route path="/login" element={<Login setCurrentUser={setCurrentUser} currentUser={currentUser} />} />
         <Route path="/users/:id/" element={<GroceryList currentUser={currentUser} />} />
         <Route path="/signUp" element={<SignUp currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+        <Route path='*' element={<Navigate replace to="/login" />}/>
       </Routes>
     </BrowserRouter>
   );
