@@ -64,7 +64,7 @@ function GroceryList({currentUser}) {
     }
     let iconChange = document.getElementById("saved");
     iconChange.src = bookmarkAdd;
-    setItems([...items, { name: currentItem, quantity: 1, complete: false }]);
+    setItems([{ name: currentItem, quantity: 1, complete: false }, ...items]);
     setCurrentItem("");
     setTotal(total + 1);
     setUpdates(true);
