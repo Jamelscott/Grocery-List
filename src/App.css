@@ -237,6 +237,12 @@ input:-moz-placeholder {
 .reactTooltip {
   background-color: #fccec6;
 }
+.status {
+  text-align: center;
+}
+.alignStart {
+  text-align: start;
+}
 
 @keyframes fadeIn {
   from {

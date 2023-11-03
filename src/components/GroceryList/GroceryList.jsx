@@ -119,7 +119,7 @@ function GroceryList({currentUser}) {
         >
           <div style={{ width: "100px" }}>
             <img
-              className="dropShadow my-anchor-element"
+              className="dropShadow my-anchor-element alignStart"
               data-tooltip-variant='info'
               onClick={handleSaveList}
               id="saved"
@@ -132,9 +132,9 @@ function GroceryList({currentUser}) {
               </Tooltip>}
           </div>
           {updates ? (
-              <p>unsaved changes</p>
+              <p className="status">unsaved changes</p>
           ) : (
-            <p style={{ color: "white" }}>up to date</p>
+            <p className="status" style={{ color: "white" }}>up to date</p>
           )}
           <p className="dropShadow list-total">Total: {total}</p>
         </div>
