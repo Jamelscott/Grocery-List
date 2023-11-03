@@ -1,14 +1,13 @@
 # Grocery List
-test
 
 [Live link](https://main--venerable-cendol-3fdaaa.netlify.app/)
+
+### server repo
+(https://github.com/Jamelscott/groceryList-server)
 
 ### Inspiration
 
 ![](https://jschris.com/41168097024a0b0e7b306a91023114b8/project.gif)
-
-### server repo
-(https://github.com/Jamelscott/groceryList-server)
 
 ### Install Instructions
 
