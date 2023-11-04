@@ -1,6 +1,6 @@
 # Grocery List
 
-[Live link](https://main--venerable-cendol-3fdaaa.netlify.app/)
+[Live link](https://grocery-list-jamel.netlify.app/)
 
 ### server repo
 https://github.com/Jamelscott/groceryList-server
